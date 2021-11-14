@@ -12,33 +12,41 @@ public class Application {
 		/**
 		 * Multiple resource types for creation of beans annotation + xml
 		 */
-		var applicationContext = new GenericApplicationContext();
-		new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("classpath:beans/beans1.xml");
+		try (var applicationContext = new GenericApplicationContext()) {
+			new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("classpath:beans/beans1.xml");
 
-		AnnotatedBeanDefinitionReader reader = new AnnotatedBeanDefinitionReader(applicationContext);
-		reader.registerBean(Editor.class);
-		applicationContext.refresh();
+			AnnotatedBeanDefinitionReader reader = new AnnotatedBeanDefinitionReader(applicationContext);
+			reader.registerBean(Editor.class);
+			applicationContext.refresh();
 
-		System.out.println(applicationContext.getBean("reader"));
-		System.out.println(applicationContext.getBean("reader"));
+			System.out.println(applicationContext.getBean("reader"));
+			System.out.println(applicationContext.getBean("reader"));
 
-		System.out.println(applicationContext.getBean("writer"));
-		System.out.println(applicationContext.getBean("writer"));
+			System.out.println(applicationContext.getBean("writer"));
+			System.out.println(applicationContext.getBean("writer"));
 
-		System.out.println(applicationContext.getBean("editor"));
-		System.out.println(applicationContext.getBean("editor"));
+			System.out.println(applicationContext.getBean("editor"));
+			System.out.println(applicationContext.getBean("editor"));
+
+		} catch (Exception e) {
+			System.err.print(e);
+		}
 
 		/**
 		 * Multi context example
 		 */
 
-//		var applicationContext2= new GenericApplicationContext();
-//		AnnotatedBeanDefinitionReader reader2 = new AnnotatedBeanDefinitionReader(applicationContext2);
-//		reader2.registerBean(Editor.class);
-//		applicationContext2.refresh();
-//		
-//		System.out.println(applicationContext2.getBean("editor"));
-//		System.out.println(applicationContext2.getBean("editor"));
+//		try (var applicationContext2 = new GenericApplicationContext()) {
+//			AnnotatedBeanDefinitionReader reader2 = new AnnotatedBeanDefinitionReader(applicationContext2);
+//			reader2.registerBean(Editor.class);
+//			applicationContext2.refresh();
+//
+//			System.out.println(applicationContext2.getBean("editor"));
+//			System.out.println(applicationContext2.getBean("editor"));
+//
+//		} catch (Exception e) {
+//			System.err.print(e);
+//		}
 	}
 
 }
